@@ -17,4 +17,11 @@ public class MotivationalQuoteApiController : ControllerBase
        //return "{\"type\": \"json object\"}";
        return param;
     }
+
+    [HttpPost("GetMotivationalQuotePost")]
+    public String GetMotivationalQuotePost([FromBody] String param)
+    {
+        Console.WriteLine(param);
+        return "response is " + param;
+    }
 }
