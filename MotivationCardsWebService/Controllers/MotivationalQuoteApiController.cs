@@ -9,7 +9,7 @@ public class MotivationalQuoteApiController : ControllerBase
 
    // https://localhost:7081/MotivationalQuoteApi?name=GetWeatherForecast
    // [HttpGet(Name = "GetWeatherForecast")]
-   //localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiii
+   //https://0.0.0.0:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx
    [HttpGet("GetMotivationalQuote/{param}")]
     public String GetMotivationalQuote(String param)
     {
