@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -56,8 +57,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _quote = "empty";
 
   void _incrementCounter() {
+    http.get(Uri.parse('https:/localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
+      print("sa servera smo dobili ${response.toString()}");
+      setState(() {
+        _quote = response.toString();
+      });
+    }).catchError((err) {
+      print('Server communication error: ${err.toString()}');
+    })
+        .timeout(Duration(seconds: 60), onTimeout: () {
+      print(' HTTP request timeout');
+    });;
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -109,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$_counter and $_quote',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
