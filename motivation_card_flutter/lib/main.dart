@@ -61,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     http.get(Uri.parse('https:/localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
-      print("sa servera smo dobili ${response.toString()}");
+      print("sa servera smo dobili ${response.body.toString()}");
       setState(() {
-        _quote = response.toString();
+        _quote = response.body.toString();
       });
     }).catchError((err) {
       print('Server communication error: ${err.toString()}');
