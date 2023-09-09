@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     })
         .timeout(Duration(seconds: 60), onTimeout: () {
       print(' HTTP request timeout');
-    });;
+    });
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
