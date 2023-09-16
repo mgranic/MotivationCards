@@ -14,9 +14,11 @@ public class MotivationalQuoteApiController : ControllerBase
    [HttpGet("GetMotivationalQuote/{param}")]
     public String GetMotivationalQuote(String param)
     {
-        Console.WriteLine(param);
+        Random random = new Random();
+        String returnValue = param + "-" + random.Next(1, 101);
+        Console.WriteLine(returnValue);
        //return "{\"type\": \"json object\"}";
-       return param;
+       return returnValue;
     }
 
     [HttpPost("GetMotivationalQuotePost")]
