@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:motivation_card_flutter/controller/get_quote/get_quote.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,11 +57,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   String _quote = "empty";
 
-  void _incrementCounter() {
-    http.get(Uri.parse('https:/localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
+  void _getMotivationalQuote() {
+    http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
       print("sa servera smo dobili ${response.body.toString()}");
       setState(() {
         _quote = response.body.toString();
@@ -71,19 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
         .timeout(Duration(seconds: 60), onTimeout: () {
       print(' HTTP request timeout');
     });
-
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+
+    if (_quote == "empty") {
+      _getMotivationalQuote();
+    }
+    
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -123,15 +119,15 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter and $_quote',
+              '$_quote',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _getMotivationalQuote,
+        tooltip: 'Get Quote',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
