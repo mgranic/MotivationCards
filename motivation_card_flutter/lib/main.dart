@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:motivation_card_flutter/controller/get_quote/get_quote.dart';
+import 'package:motivation_card_flutter/controller/util/web_service_communication_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _quote = "empty";
+  ServiceCommunicationHandler webComm = ServiceCommunicationHandler();
 
   void _getMotivationalQuote() {
     http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
@@ -73,11 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<http.Response> _getMotivationalQuoteRequest() {
+    return http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx'));   
+  }
+
+  void _getMotivationalQuoteResponseHandler(http.Response response) {
+    print("sa servera smo dobili ${response.body.toString()}");
+      setState(() {
+        _quote = response.body.toString();
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
 
     if (_quote == "empty") {
-      _getMotivationalQuote();
+      //_getMotivationalQuote();
+      webComm.sendWebServiceRequest(_getMotivationalQuoteRequest, _getMotivationalQuoteResponseHandler);
     }
     
     // This method is rerun every time setState is called, for instance as done
@@ -126,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _getMotivationalQuote,
+        onPressed: () {webComm.sendWebServiceRequest(_getMotivationalQuoteRequest, _getMotivationalQuoteResponseHandler);}, //_getMotivationalQuote,
         tooltip: 'Get Quote',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
