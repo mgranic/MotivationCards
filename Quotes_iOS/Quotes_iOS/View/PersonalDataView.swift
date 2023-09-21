@@ -13,7 +13,7 @@ struct PersonalDataView: View {
     @State var birthday: Date = Date()
     @State var motivation: String = ""
     var body: some View {
-        Form {
+            Form {
             HStack {
                 Text("Name:")
                     .bold()
@@ -39,10 +39,6 @@ struct PersonalDataView: View {
             Button(action: saveChanges) {
                 Text("Save")
             }
-            
-            
-            
-               // Text("Your name")
         }
     }
     

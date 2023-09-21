@@ -11,20 +11,32 @@ struct ContentView: View {
     @State var motivationalQuote: String = "Empty"
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(colors: [.blue, .green]), startPoint: .top, endPoint: .bottom)
-            .edgesIgnoringSafeArea(.all)
-            VStack {
-                Text("\(motivationalQuote)")
-                    .padding()
-                    .onAppear(perform: getMotivationalQuote)
-                Button(action: getMotivationalQuote) {
-                    Text("Next quote")
-                    Image(systemName: "chevron.right")
-                } /*{
-                    Image(systemName: "plus.circle.fill")
-                        .accessibilityLabel("Add attendee")
-                }*/
+        NavigationStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [.blue, .green]), startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text("\(motivationalQuote)")
+                        .padding()
+                        .onAppear(perform: getMotivationalQuote)
+                    Button(action: getMotivationalQuote) {
+                        Text("Next quote")
+                        Image(systemName: "chevron.right")
+                    } /*{
+                       Image(systemName: "plus.circle.fill")
+                       .accessibilityLabel("Add attendee")
+                       }*/
+                }
+            }
+            .toolbar {
+                //Button(action: {}) {
+                //    Text("Settings")
+                //        .foregroundColor(.red)
+                //}
+                NavigationLink(destination: PersonalDataView()) {
+                    Text("Settings")
+                        .foregroundColor(.red)
+                }
             }
         }
     }
