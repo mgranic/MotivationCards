@@ -22,18 +22,18 @@ struct PersonalDataView: View {
             }
             
             Picker("Sex:", selection: $sex) {
-                Text("None").tag(SexE.none)
-                Text("Male").tag(SexE.male)
-                Text("Female").tag(SexE.female)
+                Text("None").tag(SexE.none.rawValue)
+                Text("Male").tag(SexE.male.rawValue)
+                Text("Female").tag(SexE.female.rawValue)
             }
             
             DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
             
             Picker("Loooking for?:", selection: $motivation) {
-                Text("None").tag(MotivationE.none)
-                Text("Uplift").tag(MotivationE.uplift)
-                Text("Consolt").tag(MotivationE.console)
-                Text("Motivation").tag(MotivationE.motivation)
+                Text("None").tag(MotivationE.none.rawValue)
+                Text("Uplift").tag(MotivationE.uplift.rawValue)
+                Text("Consolt").tag(MotivationE.console.rawValue)
+                Text("Motivation").tag(MotivationE.motivation.rawValue)
             }
             
             Button(action: saveChanges) {
