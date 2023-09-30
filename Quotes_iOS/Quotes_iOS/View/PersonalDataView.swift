@@ -19,6 +19,11 @@ struct PersonalDataView: View {
                     .bold()
                     .foregroundColor(.blue)
                 TextField("Your name", text: $name, prompt: Text("Your name here"))
+                .onAppear() {
+                    if let tempName = UserDefaults.standard.string(forKey: "m_name") {
+                        name = tempName
+                    }
+                }
             }
             
             Picker("Sex:", selection: $sex) {
@@ -26,14 +31,29 @@ struct PersonalDataView: View {
                 Text("Male").tag(SexE.male.rawValue)
                 Text("Female").tag(SexE.female.rawValue)
             }
+            .onAppear() {
+                if let tempSex = UserDefaults.standard.string(forKey: "m_sex") {
+                    sex = tempSex
+                }
+            }
             
             DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
+                    .onAppear() {
+                        if let tempBirthday = UserDefaults.standard.object(forKey: "m_birthday") as? Date {
+                            birthday = tempBirthday
+                        }
+                    }
             
             Picker("Loooking for?:", selection: $motivation) {
                 Text("None").tag(MotivationE.none.rawValue)
                 Text("Uplift").tag(MotivationE.uplift.rawValue)
                 Text("Consolt").tag(MotivationE.console.rawValue)
                 Text("Motivation").tag(MotivationE.motivation.rawValue)
+            }
+            .onAppear() {
+                if let tempMotivation = UserDefaults.standard.string(forKey: "m_motivation") {
+                    motivation = tempMotivation
+                }
             }
             
             Button(action: saveChanges) {
@@ -42,8 +62,12 @@ struct PersonalDataView: View {
         }
     }
     
+    // save profile data to UserDefaults (SharedPreferences)
     private func saveChanges() {
-        
+        UserDefaults.standard.set(name, forKey: "m_name")
+        UserDefaults.standard.set(sex, forKey: "m_sex")
+        UserDefaults.standard.set(birthday, forKey: "m_birthday")
+        UserDefaults.standard.set(motivation, forKey: "m_motivation")
     }
 }
 
