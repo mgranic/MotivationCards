@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PersonalDataView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State var name: String = ""
     @State var sex: String = ""
     @State var birthday: Date = Date()
@@ -68,6 +70,11 @@ struct PersonalDataView: View {
         UserDefaults.standard.set(sex, forKey: "m_sex")
         UserDefaults.standard.set(birthday, forKey: "m_birthday")
         UserDefaults.standard.set(motivation, forKey: "m_motivation")
+        
+        // TODO 1: store data to server as well
+        
+        // redirect back after everything is done
+        dismiss()
     }
 }
 
