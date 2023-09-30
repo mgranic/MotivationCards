@@ -29,13 +29,19 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                //Button(action: {}) {
-                //    Text("Settings")
-                //        .foregroundColor(.red)
-                //}
-                NavigationLink(destination: PersonalDataView()) {
-                    Text("Settings")
-                        .foregroundColor(.red)
+
+                Menu {
+                    NavigationLink(destination: PersonalDataView()) {
+                        Text("Settings")
+                            .foregroundColor(.red)
+                    }
+                
+                    Button("Quotes") {
+                        // TODO: navigate to screen that enables you to browse quotes by category etc. Basically filter to search for quotes on your own
+                    }
+                } label: {
+                    Label("Menu", systemImage: "ellipsis.circle")
+                        .foregroundColor(.black)
                 }
             }
         }
