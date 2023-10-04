@@ -1,6 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import "dart:convert";
+import 'package:motivation_card_flutter/controller/util/web_service_communication_handler.dart';
 
 
 class CreateQuoteView extends StatefulWidget {
@@ -29,7 +32,6 @@ class _CreateQuoteViewState extends State<CreateQuoteView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // https://docs.flutter.dev/cookbook/forms/validation?gclid=Cj0KCQjw9rSoBhCiARIsAFOiplm-mn4uC-UYWuoN3Hk6FgZKgEWXE4fyrud_hl_yHpQyGQrUqPGkbosaAphmEALw_wcB&gclsrc=aw.ds
             TextFormField(
                 decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
@@ -113,5 +115,27 @@ class _CreateQuoteViewState extends State<CreateQuoteView> {
     print(_selectedCategory);
     print(_selectedGender);
     print("******************************************************************************");
+    ServiceCommunicationHandler webComm = ServiceCommunicationHandler();
+    webComm.sendWebServiceRequest(_createMotivationalQuoteRequest, _createMotivationalQuoteResponseHandler);
+    print("******************************************************************************");
+  }
+
+  Future<Response> _createMotivationalQuoteRequest() {
+    return post(
+      Uri.parse('http://localhost:5079/MotivationalQuoteApi/CreateMotivationalQuotePost'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String> {
+        'quote': _quoteText.text,
+        'author': _quoteAuthor.text,
+        'gender': (_selectedGender ?? ""),
+        'category': (_selectedCategory ?? ""),
+      }),
+    );  
+  }
+
+  void _createMotivationalQuoteResponseHandler(Response response) {
+    print("sa servera smo dobili: ${response.body.toString()}");
   }
 }

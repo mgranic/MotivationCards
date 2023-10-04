@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MotivationCardsWebService.Model;
 
 namespace MotivationCardsWebService.Controllers;
 
@@ -27,4 +28,21 @@ public class MotivationalQuoteApiController : ControllerBase
         Console.WriteLine(param);
         return "response is " + param;
     }
+
+
+    [HttpPost("CreateMotivationalQuotePost")]
+    [Produces("application/json")]
+    public String CreateMotivationalQuotePost([FromBody]QuoteModel quote)
+    {
+        Console.WriteLine("Quote received is: " + quote.quote);
+        Console.WriteLine("Author received is: " + quote.author);
+        Console.WriteLine("Gender received is: " + quote.gender);
+        Console.WriteLine("Motivations received is: " + quote.category);
+
+        QuoteModel qm = new QuoteModel();
+        qm.createQuote(quote.quote, quote.author, quote.gender, quote.category);
+
+        return quote.quote;
+    }
+
 }

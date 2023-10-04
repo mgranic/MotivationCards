@@ -57,31 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String _quote = "empty";
   ServiceCommunicationHandler webComm = ServiceCommunicationHandler();
 
-  void _getMotivationalQuote() {
-    http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx')).then((response) {
-      print("sa servera smo dobili ${response.body.toString()}");
-      setState(() {
-        _quote = response.body.toString();
-      });
-    }).catchError((err) {
-      print('Server communication error: ${err.toString()}');
-    })
-        .timeout(Duration(seconds: 60), onTimeout: () {
-      print(' HTTP request timeout');
-    });
-  }
-
-  Future<http.Response> _getMotivationalQuoteRequest() {
-    return http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx'));   
-  }
-
-  void _getMotivationalQuoteResponseHandler(http.Response response) {
-    print("sa servera smo dobili ${response.body.toString()}");
-      setState(() {
-        _quote = response.body.toString();
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -169,4 +144,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  Future<http.Response> _getMotivationalQuoteRequest() {
+    return http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx'));   
+  }
+
+  void _getMotivationalQuoteResponseHandler(http.Response response) {
+    print("sa servera smo dobili ${response.body.toString()}");
+      setState(() {
+        _quote = response.body.toString();
+      });
+  }
+  
 }
