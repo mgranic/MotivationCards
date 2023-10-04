@@ -35,9 +35,10 @@ struct ContentView: View {
                         Text("Settings")
                             .foregroundColor(.red)
                     }
-                
-                    Button("Quotes") {
-                        // TODO: navigate to screen that enables you to browse quotes by category etc. Basically filter to search for quotes on your own
+                    
+                    NavigationLink(destination: QuoteMainCatalogView()) {
+                        Text("Quotes catalog")
+                            .foregroundColor(.red)
                     }
                 } label: {
                     Label("Menu", systemImage: "ellipsis.circle")
