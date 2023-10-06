@@ -13,26 +13,26 @@ public class MotivationalQuoteApiController : ControllerBase
    //https://0.0.0.0:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx
    //https:/localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx
    [HttpGet("GetMotivationalQuote/{param}")]
-    public String GetMotivationalQuote(String param)
+    public IActionResult GetMotivationalQuote(String param)
     {
         Random random = new Random();
         String returnValue = param + "-" + random.Next(1, 101);
         Console.WriteLine(returnValue);
        //return "{\"type\": \"json object\"}";
-       return returnValue;
+       return Ok(returnValue);
     }
 
     [HttpPost("GetMotivationalQuotePost")]
-    public String GetMotivationalQuotePost([FromBody] String param)
+    public IActionResult GetMotivationalQuotePost([FromBody] String param)
     {
         Console.WriteLine(param);
-        return "response is " + param;
+        return Ok("response is " + param);
     }
 
 
     [HttpPost("CreateMotivationalQuotePost")]
     [Produces("application/json")]
-    public String CreateMotivationalQuotePost([FromBody]QuoteModel quote)
+    public IActionResult CreateMotivationalQuotePost([FromBody]QuoteModel quote)
     {
         Console.WriteLine("Quote received is: " + quote.quote);
         Console.WriteLine("Author received is: " + quote.author);
@@ -42,7 +42,25 @@ public class MotivationalQuoteApiController : ControllerBase
         QuoteModel qm = new QuoteModel();
         qm.createQuote(quote.quote, quote.author, quote.gender, quote.category);
 
-        return quote.quote;
+        return Ok(quote.quote);
+    }
+
+    [HttpPost("GelUniqueCategoryElements")]
+    public IActionResult GelUniqueCategoryElements(string receivedCategory)
+    {
+        // Perform whatever processing you need to do on the string parameter.
+
+        // Create a JSON object to return to the client.
+        var jsonObject = new
+        {
+            category = receivedCategory,
+            categoryElements = "JSON string of category elements"
+        };
+
+        Console.WriteLine("Category = *** " + receivedCategory);
+
+        // Return the JSON object from the method.
+        return Ok(jsonObject);
     }
 
 }
