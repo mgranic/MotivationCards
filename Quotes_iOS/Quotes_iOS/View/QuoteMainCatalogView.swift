@@ -16,16 +16,9 @@ struct QuoteMainCatalogView: View {
                     NavigationLink(destination: CategoryElementsView(filterType)) {
                         Text(filterType)
                     }
-                    //Button(action: {filterSelected(filter: filterType)}) {
-                    //    Text(filterType)
-                    //}
                 }
             }
         }
-    }
-    
-    private func filterSelected(filter: String) {
-        print("String received is \(filter)")
     }
 }
 

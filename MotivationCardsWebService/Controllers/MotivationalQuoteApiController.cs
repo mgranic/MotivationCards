@@ -1,3 +1,4 @@
+using System.Drawing.Printing;
 using Microsoft.AspNetCore.Mvc;
 using MotivationCardsWebService.Model;
 
@@ -45,19 +46,21 @@ public class MotivationalQuoteApiController : ControllerBase
         return Ok(quote.quote);
     }
 
-    [HttpPost("GelUniqueCategoryElements")]
-    public IActionResult GelUniqueCategoryElements(string receivedCategory)
+    [HttpPost("GetUniqueCategoryElements")]
+    [Produces("application/json")]
+    public IActionResult GetUniqueCategoryElements([FromBody]CategoryElementRequestModel receivedCategory)
     {
         // Perform whatever processing you need to do on the string parameter.
+        Console.WriteLine(receivedCategory.category);
 
         // Create a JSON object to return to the client.
         var jsonObject = new
         {
-            category = receivedCategory,
-            categoryElements = "JSON string of category elements"
+            category = receivedCategory.category,
+            listOfElements = "JSON string of category elements"
         };
 
-        Console.WriteLine("Category = *** " + receivedCategory);
+        Console.WriteLine("Category = *** " + receivedCategory.category);
 
         // Return the JSON object from the method.
         return Ok(jsonObject);
