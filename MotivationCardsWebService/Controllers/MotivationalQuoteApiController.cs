@@ -50,6 +50,7 @@ public class MotivationalQuoteApiController : ControllerBase
     [Produces("application/json")]
     public IActionResult GetUniqueCategoryElements([FromBody]CategoryElementRequestModel receivedCategory)
     {
+        var elementsResponse = new CategoryElementResponse();
         // Perform whatever processing you need to do on the string parameter.
         Console.WriteLine(receivedCategory.category);
 
@@ -57,7 +58,7 @@ public class MotivationalQuoteApiController : ControllerBase
         var jsonObject = new
         {
             category = receivedCategory.category,
-            listOfElements = "JSON string of category elements"
+            listOfElements = elementsResponse.getUniqueElementsOfCategory()
         };
 
         Console.WriteLine("Category = *** " + receivedCategory.category);

@@ -58,7 +58,11 @@ struct CategoryElementsView: View {
                 let categoryElements = try decoder.decode(CategoryElementsModel.self, from: data!)
                 print("*****************************************************************")
                 print("Decoded response categry is: \(categoryElements.category)")
-                print("Decoded response list is: \(categoryElements.listOfElements)")
+                
+                for eleme in categoryElements.listOfElements {
+                    print("element is ... \(eleme)")
+                }
+                //print("Decoded response list is: \(categoryElements.listOfElements)")
                 print("*****************************************************************")
             } catch {
                 print(error);

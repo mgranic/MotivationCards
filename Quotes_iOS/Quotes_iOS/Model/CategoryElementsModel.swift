@@ -9,5 +9,5 @@ import Foundation
 
 struct CategoryElementsModel : Decodable {
     var category: String
-    var listOfElements: String // TODO: this should be changed into list but for now use string untill that works
+    var listOfElements: [String]
 }
