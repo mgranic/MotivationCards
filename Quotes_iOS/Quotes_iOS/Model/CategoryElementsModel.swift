@@ -8,6 +8,6 @@
 import Foundation
 
 struct CategoryElementsModel : Decodable {
-    var category: String
-    var listOfElements: [String]
+    var category: String = ""
+    var listOfElements: [String] = []
 }

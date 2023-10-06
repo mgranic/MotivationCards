@@ -10,6 +10,7 @@ import SwiftUI
 struct CategoryElementsView: View {
     
     var selectedCategory: String = "";
+    @State var categoryElements = CategoryElementsModel()
     
     init(_ category: String) {
         self.selectedCategory = category
@@ -20,6 +21,9 @@ struct CategoryElementsView: View {
             .onAppear(perform: {
                 getUniqueElementsFromWebApi(category: selectedCategory)
             })
+        ForEach(categoryElements.listOfElements, id: \.self) { elem in
+            Text("\(elem)")
+        }
     }
     
     private func getUniqueElementsFromWebApi(category: String) {
@@ -55,15 +59,14 @@ struct CategoryElementsView: View {
             
             let decoder = JSONDecoder()
             do {
-                let categoryElements = try decoder.decode(CategoryElementsModel.self, from: data!)
-                print("*****************************************************************")
-                print("Decoded response categry is: \(categoryElements.category)")
-                
-                for eleme in categoryElements.listOfElements {
-                    print("element is ... \(eleme)")
-                }
-                //print("Decoded response list is: \(categoryElements.listOfElements)")
-                print("*****************************************************************")
+                categoryElements = try decoder.decode(CategoryElementsModel.self, from: data!)
+                //print("*****************************************************************")
+                //print("Decoded response categry is: \(categoryElements.category)")
+                //
+                //for eleme in categoryElements.listOfElements {
+                //    print("element is ... \(eleme)")
+                //}
+                //print("*****************************************************************")
             } catch {
                 print(error);
             }
