@@ -13,9 +13,12 @@ struct QuoteMainCatalogView: View {
             ScrollView {
                 ForEach(filterList, id: \.self) { filterType in
                     // TODO: this has to be some navigation link. Navigate to same view but show different data based on some parameter
-                    Button(action: {filterSelected(filter: filterType)}) {
+                    NavigationLink(destination: CategoryElementsView(filterType)) {
                         Text(filterType)
                     }
+                    //Button(action: {filterSelected(filter: filterType)}) {
+                    //    Text(filterType)
+                    //}
                 }
             }
         }

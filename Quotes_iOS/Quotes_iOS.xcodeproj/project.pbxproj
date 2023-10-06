@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20A238442ACFDE1E00CDB2AB /* CategoryElementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A238432ACFDE1E00CDB2AB /* CategoryElementsView.swift */; };
 		20C6AA502ACE02800011DA8E /* QuoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6AA4F2ACE02800011DA8E /* QuoteModel.swift */; };
 		20C6AA522ACE031E0011DA8E /* QuoteMainCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C6AA512ACE031E0011DA8E /* QuoteMainCatalogView.swift */; };
 		20F8D44D2ABB5645006174F6 /* Quotes_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F8D44C2ABB5645006174F6 /* Quotes_iOSApp.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20A238432ACFDE1E00CDB2AB /* CategoryElementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryElementsView.swift; sourceTree = "<group>"; };
 		20C6AA4F2ACE02800011DA8E /* QuoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteModel.swift; sourceTree = "<group>"; };
 		20C6AA512ACE031E0011DA8E /* QuoteMainCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteMainCatalogView.swift; sourceTree = "<group>"; };
 		20F8D4492ABB5645006174F6 /* Quotes_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quotes_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				20F8D44E2ABB5645006174F6 /* ContentView.swift */,
 				20F8D47A2ABB56F1006174F6 /* PersonalDataView.swift */,
 				20C6AA512ACE031E0011DA8E /* QuoteMainCatalogView.swift */,
+				20A238432ACFDE1E00CDB2AB /* CategoryElementsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20C6AA522ACE031E0011DA8E /* QuoteMainCatalogView.swift in Sources */,
+				20A238442ACFDE1E00CDB2AB /* CategoryElementsView.swift in Sources */,
 				20C6AA502ACE02800011DA8E /* QuoteModel.swift in Sources */,
 				20F8D44F2ABB5645006174F6 /* ContentView.swift in Sources */,
 				20F8D44D2ABB5645006174F6 /* Quotes_iOSApp.swift in Sources */,
