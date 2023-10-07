@@ -67,4 +67,25 @@ public class MotivationalQuoteApiController : ControllerBase
         return Ok(jsonObject);
     }
 
+    [HttpPost("GetQuotesForCategoryElement")]
+    [Produces("application/json")]
+    public IActionResult GetQuotesForCategoryElement([FromBody]CategoryElementRequestModel categoryElement)
+    {
+        var elementsResponse = new CategoryElementResponse();
+        // Perform whatever processing you need to do on the string parameter.
+        Console.WriteLine(categoryElement.category);
+
+        // Create a JSON object to return to the client.
+        var jsonObject = new
+        {
+            category = categoryElement.category,
+            listOfElements = elementsResponse.getQuotesForElementOfCategory()
+        };
+
+        Console.WriteLine("Element = *** " + categoryElement.category);
+
+        // Return the JSON object from the method.
+        return Ok(jsonObject);
+    }
+
 }

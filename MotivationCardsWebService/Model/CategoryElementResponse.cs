@@ -10,4 +10,14 @@ public class CategoryElementResponse {
 
         return elements;
     }
+
+    public List<string> getQuotesForElementOfCategory() {
+        var elements = new List<string>();
+
+        for(int i = 0; i < 100; i++) {
+            elements.Add("element " + (i + 1));
+        }
+
+        return elements;
+    }
 }

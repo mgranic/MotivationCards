@@ -1,39 +1,49 @@
 //
-//  CategoryElementsView.swift
+//  QuoteListView.swift
 //  Quotes_iOS
 //
-//  Created by Mate Granic on 06.10.2023..
+//  Created by Mate Granic on 07.10.2023..
 //
 
 import SwiftUI
 
-struct CategoryElementsView: View {
+struct QuoteListView: View {
+    @State var listOfQuotes: [String] = []
+    private var categoryElement: String
     
-    var selectedCategory: String = "";
-    @State var categoryElements = CategoryElementsModel()
-    
-    init(_ category: String) {
-        self.selectedCategory = category
+    init(_ cateEl: String) {
+        self.categoryElement = cateEl
+        
+        // TODO: replace this with post request to server to get data. This post should be done in onAppear handler like in CategoryElementsView
+        //dummyList: [String] = ["q1", "q2", "q3"]
+        
+        //quote in dummyList {
+        //listOfQuotes.append(quote)
+        //
+        
+        //ODO: remove this once you remove dummy list above, this is just for easier debugging
+        //OfQuotes.append(cateEl)
     }
     
     var body: some View {
-        Text("Selected: *** \(selectedCategory) ***")
-            .onAppear(perform: {
-                getUniqueElementsFromWebApi(category: selectedCategory)
-            })
-        ForEach(categoryElements.listOfElements, id: \.self) { elem in
-            NavigationLink(destination: QuoteListView(elem)) {
-                Text("\(elem)")
+        VStack {
+            ScrollView {
+                ForEach(listOfQuotes, id: \.self) { quote in
+                    Text("\(quote)")
+                }
             }
         }
+        .onAppear(perform: {
+            getQuotesForElementFromWebApi(element: categoryElement)
+        })
     }
     
-    private func getUniqueElementsFromWebApi(category: String) {
-        let url = URL(string: "http://192.168.1.80:5079/MotivationalQuoteApi/GetUniqueCategoryElements")!
+    private func getQuotesForElementFromWebApi(element: String) {
+        let url = URL(string: "http://192.168.1.80:5079/MotivationalQuoteApi/GetQuotesForCategoryElement")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonObject = ["category": "\(category)"]
+        let jsonObject = ["category": "\(element)"]
         let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
         urlRequest.httpBody = jsonData
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
@@ -61,14 +71,10 @@ struct CategoryElementsView: View {
             
             let decoder = JSONDecoder()
             do {
-                categoryElements = try decoder.decode(CategoryElementsModel.self, from: data!)
-                //print("*****************************************************************")
-                //print("Decoded response categry is: \(categoryElements.category)")
-                //
-                //for eleme in categoryElements.listOfElements {
-                //    print("element is ... \(eleme)")
-                //}
-                //print("*****************************************************************")
+                let listFromWeb = try decoder.decode(CategoryElementsModel.self, from: data!)
+                for quote in listFromWeb.listOfElements {
+                    listOfQuotes.append(quote)
+                }
             } catch {
                 print(error);
             }
@@ -77,8 +83,9 @@ struct CategoryElementsView: View {
     }
 }
 
-struct CategoryElementsView_Previews: PreviewProvider {
+
+struct QuoteListView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryElementsView("Dummy category")
+        QuoteListView("Nice")
     }
 }
