@@ -11,4 +11,6 @@ USE QuotesDB;
     PRIMARY KEY (id)
 ); */
 
+/*insert into quotes (quote, author, gender, category) VALUES ("kvota1", "autor1", "gen1", "cat1");*/
+
 SELECT * from quotes;
