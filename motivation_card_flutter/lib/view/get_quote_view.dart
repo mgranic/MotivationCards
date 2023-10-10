@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:motivation_card_flutter/controller/util/web_service_communication_handler.dart';
@@ -146,13 +148,23 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<http.Response> _getMotivationalQuoteRequest() {
-    return http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx'));   
+    //return http.get(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx'));   
+     var body = jsonEncode({
+      'gender': "gender value",
+      'age': 30,
+    });
+    return http.post(Uri.parse('http://localhost:5079/MotivationalQuoteApi/GetMotivationalQuotePost'), 
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: body,
+                            );
   }
 
   void _getMotivationalQuoteResponseHandler(http.Response response) {
     print("sa servera smo dobili ${response.body.toString()}");
       setState(() {
-        _quote = response.body.toString();
+        _quote = response.body.toString(); //jsonDecode(response.body)['content']['headers'][0]['value'][0];
       });
   }
   

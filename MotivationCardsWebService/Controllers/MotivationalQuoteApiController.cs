@@ -1,4 +1,5 @@
 using System.Drawing.Printing;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using MotivationCardsWebService.Model;
 
@@ -8,26 +9,27 @@ namespace MotivationCardsWebService.Controllers;
 [Route("[controller]")]
 public class MotivationalQuoteApiController : ControllerBase
 {
-
-   // https://localhost:7081/MotivationalQuoteApi?name=GetWeatherForecast
-   // [HttpGet(Name = "GetWeatherForecast")]
-   //https://0.0.0.0:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx
-   //https:/localhost:5079/MotivationalQuoteApi/GetMotivationalQuote/radiiiiixxx
-   [HttpGet("GetMotivationalQuote/{param}")]
-    public IActionResult GetMotivationalQuote(String param)
-    {
-        Random random = new Random();
-        String returnValue = param + "-" + random.Next(1, 101);
-        Console.WriteLine(returnValue);
-       //return "{\"type\": \"json object\"}";
-       return Ok(returnValue);
-    }
+    //[HttpPost("GetMotivationalQuotePost")]
+    //public IActionResult GetMotivationalQuotePost([FromBody] UserModel usr)
+    //{
+    //    Random random = new Random();
+    //    var retVal = usr.gender + " - " + usr.age + " - " + random.Next(1, 200);
+    //    Console.WriteLine(retVal);
+    //    return Ok("response is " + retVal);
+    //}
 
     [HttpPost("GetMotivationalQuotePost")]
-    public IActionResult GetMotivationalQuotePost([FromBody] String param)
+    [Produces("application/json")]
+    public async Task<IActionResult> GetMotivationalQuotePost([FromBody] UserModel usr)
     {
-        Console.WriteLine(param);
-        return Ok("response is " + param);
+        Random random = new Random();
+        var retVal = usr.gender + " - " + usr.age + " - " + random.Next(1, 200);
+        Console.WriteLine(retVal);
+
+        QuoteModel qm = new QuoteModel();
+        qm.selectFromQuotes();
+
+        return Ok(retVal);
     }
 
 
@@ -79,7 +81,7 @@ public class MotivationalQuoteApiController : ControllerBase
         var jsonObject = new
         {
             category = categoryElement.category,
-            listOfElements = elementsResponse.getQuotesForElementOfCategory()
+            listOfElements = elementsResponse.getQuotesForElementOfCategory(categoryElement.category)
         };
 
         Console.WriteLine("Element = *** " + categoryElement.category);

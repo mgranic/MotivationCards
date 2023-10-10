@@ -1,5 +1,6 @@
 namespace MotivationCardsWebService.Util;
 
+using System.Data;
 using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 
@@ -34,5 +35,21 @@ public class DatabaseHandler {
         // Close the connection.
         conn.Close();
  
+    }
+
+    public async Task<DataTable> executeSelectRaw(string selectQuery) {
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+
+            using (var command = new MySqlCommand(selectQuery, connection))
+            {
+                var dataAdapter = new MySqlDataAdapter(command);
+                var dataTable = new DataTable();
+                dataAdapter.Fill(dataTable);
+
+                return dataTable;
+            }
+        }
     }
 }
