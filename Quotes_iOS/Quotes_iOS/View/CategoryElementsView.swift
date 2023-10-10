@@ -22,7 +22,7 @@ struct CategoryElementsView: View {
                 getUniqueElementsFromWebApi(category: selectedCategory)
             })
         ForEach(categoryElements.listOfElements, id: \.self) { elem in
-            NavigationLink(destination: QuoteListView(elem)) {
+            NavigationLink(destination: QuoteListView(elem, selectedCategory)) {
                 Text("\(elem)")
             }
         }

@@ -52,13 +52,18 @@ struct ContentView: View {
         print("button pressed")
         
         // Create a URL object for the GET request
-        let url = URL(string: "http://192.168.1.80:5079/MotivationalQuoteApi/GetMotivationalQuote/radi123x")!
+        let url = URL(string: "http://192.168.1.80:5079/MotivationalQuoteApi/GetMotivationalQuotePost")!
         
         // Create a URLRequest object
         var request = URLRequest(url: url)
         
         // Set the HTTP method to GET
-        request.httpMethod = "GET"
+        request.httpMethod = "POST"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonObject: [String: Any] = ["gender": "gender value", "age": 34]
+        let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
+        request.httpBody = jsonData
         
         // Make the HTTP request
         URLSession.shared.dataTask(with: request) { data, response, error in

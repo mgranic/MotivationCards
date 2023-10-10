@@ -50,7 +50,7 @@ public class MotivationalQuoteApiController : ControllerBase
 
     [HttpPost("GetUniqueCategoryElements")]
     [Produces("application/json")]
-    public IActionResult GetUniqueCategoryElements([FromBody]CategoryElementRequestModel receivedCategory)
+    public async Task<IActionResult> GetUniqueCategoryElements([FromBody]CategoryElementRequestModel receivedCategory)
     {
         var elementsResponse = new CategoryElementResponse();
         // Perform whatever processing you need to do on the string parameter.
@@ -60,7 +60,7 @@ public class MotivationalQuoteApiController : ControllerBase
         var jsonObject = new
         {
             category = receivedCategory.category,
-            listOfElements = elementsResponse.getUniqueElementsOfCategory()
+            listOfElements = await elementsResponse.getUniqueElementsOfCategory(receivedCategory.category)
         };
 
         Console.WriteLine("Category = *** " + receivedCategory.category);
@@ -71,7 +71,7 @@ public class MotivationalQuoteApiController : ControllerBase
 
     [HttpPost("GetQuotesForCategoryElement")]
     [Produces("application/json")]
-    public IActionResult GetQuotesForCategoryElement([FromBody]CategoryElementRequestModel categoryElement)
+    public async Task<IActionResult> GetQuotesForCategoryElement([FromBody]QuoteListRequest categoryElement)
     {
         var elementsResponse = new CategoryElementResponse();
         // Perform whatever processing you need to do on the string parameter.
@@ -81,7 +81,7 @@ public class MotivationalQuoteApiController : ControllerBase
         var jsonObject = new
         {
             category = categoryElement.category,
-            listOfElements = elementsResponse.getQuotesForElementOfCategory(categoryElement.category)
+            listOfElements = await elementsResponse.getQuotesForElementOfCategory(categoryElement.category, categoryElement.value)
         };
 
         Console.WriteLine("Element = *** " + categoryElement.category);

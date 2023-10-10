@@ -10,19 +10,11 @@ import SwiftUI
 struct QuoteListView: View {
     @State var listOfQuotes: [String] = []
     private var categoryElement: String
+    private var selectedCategory: String
     
-    init(_ cateEl: String) {
+    init(_ cateEl: String, _ selectedCat: String) {
         self.categoryElement = cateEl
-        
-        // TODO: replace this with post request to server to get data. This post should be done in onAppear handler like in CategoryElementsView
-        //dummyList: [String] = ["q1", "q2", "q3"]
-        
-        //quote in dummyList {
-        //listOfQuotes.append(quote)
-        //
-        
-        //ODO: remove this once you remove dummy list above, this is just for easier debugging
-        //OfQuotes.append(cateEl)
+        self.selectedCategory = selectedCat
     }
     
     var body: some View {
@@ -34,16 +26,16 @@ struct QuoteListView: View {
             }
         }
         .onAppear(perform: {
-            getQuotesForElementFromWebApi(element: categoryElement)
+            getQuotesForElementFromWebApi(categoryValue: categoryElement, category: selectedCategory)
         })
     }
     
-    private func getQuotesForElementFromWebApi(element: String) {
+    private func getQuotesForElementFromWebApi(categoryValue: String, category: String) {
         let url = URL(string: "http://192.168.1.80:5079/MotivationalQuoteApi/GetQuotesForCategoryElement")!
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let jsonObject = ["category": "\(element)"]
+        let jsonObject = ["category": "\(selectedCategory)", "value":"\(categoryValue)"]
         let jsonData = try! JSONSerialization.data(withJSONObject: jsonObject, options: [])
         urlRequest.httpBody = jsonData
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
@@ -86,6 +78,6 @@ struct QuoteListView: View {
 
 struct QuoteListView_Previews: PreviewProvider {
     static var previews: some View {
-        QuoteListView("Nice")
+        QuoteListView("Nice", "author")
     }
 }
