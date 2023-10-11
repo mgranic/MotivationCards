@@ -18,16 +18,15 @@ struct QuoteListView: View {
     }
     
     var body: some View {
-        VStack {
-            ScrollView {
-                ForEach(listOfQuotes, id: \.self) { quote in
-                    Text("\(quote)")
-                }
+        List {
+            ForEach(listOfQuotes, id: \.self) { quote in
+                Text("\(quote)")
             }
         }
         .onAppear(perform: {
             getQuotesForElementFromWebApi(categoryValue: categoryElement, category: selectedCategory)
         })
+        .navigationTitle(selectedCategory + ": " + categoryElement)
     }
     
     private func getQuotesForElementFromWebApi(categoryValue: String, category: String) {

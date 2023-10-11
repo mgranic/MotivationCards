@@ -9,8 +9,8 @@ import SwiftUI
 
 struct QuoteMainCatalogView: View {
     var body: some View {
-        VStack {
-            ScrollView {
+        NavigationView {
+            List {
                 ForEach(filterList, id: \.self) { filterType in
                     // TODO: this has to be some navigation link. Navigate to same view but show different data based on some parameter
                     NavigationLink(destination: CategoryElementsView(filterType)) {
@@ -18,6 +18,7 @@ struct QuoteMainCatalogView: View {
                     }
                 }
             }
+            .navigationTitle("Search quotes")
         }
     }
 }

@@ -17,15 +17,21 @@ struct CategoryElementsView: View {
     }
     
     var body: some View {
-        Text("Selected: *** \(selectedCategory) ***")
-            .onAppear(perform: {
-                getUniqueElementsFromWebApi(category: selectedCategory)
-            })
-        ForEach(categoryElements.listOfElements, id: \.self) { elem in
-            NavigationLink(destination: QuoteListView(elem, selectedCategory)) {
-                Text("\(elem)")
+        //Text("Selected: *** \(selectedCategory) ***")
+        //    .onAppear(perform: {
+        //        getUniqueElementsFromWebApi(category: selectedCategory)
+        //    })
+        List {
+            ForEach(categoryElements.listOfElements, id: \.self) { elem in
+                NavigationLink(destination: QuoteListView(elem, selectedCategory)) {
+                    Text("\(elem)")
+                }
             }
         }
+        .onAppear(perform: {
+            getUniqueElementsFromWebApi(category: selectedCategory)
+        })
+        .navigationBarTitle(selectedCategory)
     }
     
     private func getUniqueElementsFromWebApi(category: String) {
