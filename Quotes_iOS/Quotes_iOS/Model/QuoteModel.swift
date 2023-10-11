@@ -19,4 +19,4 @@ enum GenderE: String {
     case Other
 }
 
-var filterList: [String] = ["Category", "Gender"]
+var filterList: [String] = ["Category", "Gender", "Author"]
