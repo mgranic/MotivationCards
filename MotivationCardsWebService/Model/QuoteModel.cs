@@ -27,4 +27,13 @@ public class QuoteModel {
            Console.WriteLine(row.Field<string>("quote") + " - " + row.Field<string>("author"));
         }
     }
+
+    public async Task<string> getRandomQuote() {
+        var dbHandler = new DatabaseHandler();
+        var retVal = await dbHandler.executeSelectRaw("select * from quotes");
+
+         Random random = new Random();
+
+         return retVal.Rows[random.Next(0, retVal.Rows.Count - 1)].Field<string>("quote");
+    }
 }

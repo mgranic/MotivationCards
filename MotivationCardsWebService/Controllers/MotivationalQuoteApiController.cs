@@ -22,14 +22,18 @@ public class MotivationalQuoteApiController : ControllerBase
     [Produces("application/json")]
     public async Task<IActionResult> GetMotivationalQuotePost([FromBody] UserModel usr)
     {
-        Random random = new Random();
-        var retVal = usr.gender + " - " + usr.age + " - " + random.Next(1, 200);
-        Console.WriteLine(retVal);
-
+        //Random random = new Random();
+        //var retVal = usr.gender + " - " + usr.age + " - " + random.Next(1, 200);
+        //Console.WriteLine(retVal);
+//
+        //QuoteModel qm = new QuoteModel();
+        //qm.selectFromQuotes();
+//
+        //return Ok(retVal);
         QuoteModel qm = new QuoteModel();
-        qm.selectFromQuotes();
+        var randomQuote = await qm.getRandomQuote();
 
-        return Ok(retVal);
+        return Ok(randomQuote);
     }
 
 
